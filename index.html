@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Google Map</title>
+</head>
+<style>
+    #map {
+        height: 500px;
+        width: 100%;
+    }
+    h1 {
+        text-align: center; 
+    }
+</style>
+<body>
+    <h1>My Google Maps</h1>
+    <div id="map"></div>
+    <script>
+        function initMap() {
+        var options = {
+            zoom: 16,
+            center: {
+                lat: 14.5821,
+                lng: 121.0558
+            }
+        }    
+        // New Map
+        var map = new google.maps.Map(document.getElementById('map'), options);     
+
+
+        // Array of Markers
+        var markers = [
+            {
+            coords:{lat: 14.5828,lng: 121.0534},
+            content: '<h1>Starmall</h1>'
+            },
+            {
+            coords:{lat: 14.5834,lng: 121.0565},
+            content: '<h1>Megamall</h1>'
+            },
+            {
+            coords:{lat:14.5807,lng: 121.0554},
+            content: '<h1>Shangrila</h1>'
+            },
+        ];
+        for(i = 0; i < markers.length; i++){
+            addMarker(markers[i]);
+        }
+        function addMarker(props){
+            var marker = new google.maps.Marker({
+            position: props.coords,
+            map: map
+            });
+
+            if(props.content){
+                var infoWindow = new google.maps.InfoWindow({
+                    content: props.content
+                });
+                
+                marker.addListener('click', function(){
+                    infoWindow.open(map, marker);
+                });
+            }
+        }
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFWFM0CVXzVBv1sv_5_cIXNav2VgCEO0s&callback=initMap">
+    </script>
+</body>
+</html>
